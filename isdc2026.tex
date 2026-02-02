@@ -1,6 +1,12 @@
 \documentclass[11pt]{article}
 
 %% -------------------------
+%% Figures
+%% -------------------------
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,fit}
+
+%% -------------------------
 %% Page layout (simple & standard)
 %% -------------------------
 \usepackage[margin=1in]{geometry}
@@ -69,11 +75,11 @@ Dan Adler\\
 \maketitle
 
 \begin{abstract}
-Many domains describe complex change as “evolutionary,” yet most system dynamics models remain constrained to fixed state spaces, static transition rules, and equilibrium-seeking behavior. As a result, they capture adaptation within predefined structures but struggle to represent the emergence of new structures, strategies, or categories over time. This paper argues that evolutionary dynamics should be treated as a core systems-thinking problem rather than a biological metaphor.
+Complex change is often described as “evolutionary” across economics, policy, and technology, yet most system dynamics models remain constrained to fixed state spaces, static transition rules, and equilibrium-seeking behavior. Such models can represent adaptation within predefined structures but struggle to capture the emergence of new structures, strategies, or categories over time. This paper argues that evolutionary dynamics should be treated as a core systems-thinking problem rather than a biological metaphor.
 
-We introduce Stability-Driven Assembly (SDA) as a minimal dynamic framework in which stochastic interactions combined with differential persistence generate endogenous selection without requiring genes, replication, or predefined fitness functions. In SDA, patterns that persist longer become over-represented in the population and therefore more likely to participate in future interactions, creating feedback between population composition and system dynamics. This feedback implements fitness-proportional sampling as an emergent property of the system, yielding a natural genetic-algorithm-like process driven solely by stability.
+We introduce Stability-Driven Assembly (SDA) as a minimal, non-equilibrium framework in which stochastic interactions combined with differential persistence generate endogenous selection without genes, replication, or predefined fitness functions. In SDA, longer-lived patterns accumulate in the population, biasing future interactions and creating feedback between population composition and system dynamics. This feedback yields fitness-proportional sampling as an emergent property, realizing a natural genetic-algorithm-like process driven solely by stability.
 
-Using SDA as a concrete example, we show how evolutionary dynamics arise from non-equilibrium feedback rather than equilibrium optimization, and why simulation-based approaches are essential when the effective state space and transition structure evolve over time. We argue that models constrained toward equilibrium or fixed transition rates cannot capture open-ended evolution, even when simulated numerically. The paper concludes by discussing implications for system dynamics, economics, and policy modeling, and by suggesting that agent-based and AI-augmented systems may provide a practical substrate for evolutionary system models in which strategies, representations, and state spaces co-evolve.
+Using SDA as a concrete example, we show why equilibrium-constrained models—even when simulated numerically—cannot exhibit open-ended evolution, and why evolutionary systems require population-dependent, non-stationary dynamics. We conclude by discussing implications for system dynamics, economics, and policy modeling, and by outlining how agent-based and AI-enabled approaches may support evolutionary system models in which structure and dynamics co-evolve.
 \end{abstract}
 
 \section{Introduction}
@@ -243,17 +249,52 @@ The challenge, however, is not simply to add more learning or complexity, but to
 
 Viewed in this light, evolutionary systems thinking represents an extension rather than a rejection of system dynamics. It retains the emphasis on feedback, accumulation, and nonlinearity, but shifts attention from equilibrium behavior within fixed structures to the evolution of the structures themselves. Developing such models remains an open research frontier, with implications for economics, policy design, artificial intelligence, and the study of complex adaptive systems.
 
+\section{Why Agent-Based Simulation Alone Is Not Sufficient}
+
+Agent-based models are often proposed as a remedy to the limitations of equilibrium-constrained systems, since they allow heterogeneous agents, nonlinear interactions, and rich emergent behavior. While agent-based simulation is an essential ingredient of evolutionary modeling, it is not sufficient on its own. Many agent-based systems remain structurally incapable of evolution because they treat population-level structure as an output rather than as a causal state.
+
+In typical agent-based models, agents interact according to fixed rules within a predefined state space. Population statistics—such as frequencies of strategies or behaviors—are computed as summaries of agent states but do not feed back to alter the rules governing future interactions. As a result, although such models can exhibit adaptation, learning, or complex transient dynamics, they lack a mechanism by which population composition reshapes the effective dynamics of the system itself.
+
+The SDA framework clarifies why this distinction is critical. In SDA, the population distribution is not merely an aggregate outcome but an active dynamical variable. Differential persistence reshapes population composition, and this composition directly biases future interactions. Agents and populations are therefore dynamically inseparable: the behavior of individual entities depends on the population they inhabit, while the population evolves as a consequence of individual persistence. Evolution arises from this bidirectional coupling, rather than from agent-level optimization or externally imposed selection.
+
+From a modeling perspective, this implies that agents cannot be simulated independently of population dynamics. Any model in which agent behavior is conditionally independent of population composition—except through fixed, externally specified parameters—will fail to capture persistence-driven evolutionary feedback. Evolutionary systems require models in which population structure mediates interaction probabilities, survival, and the generation of future variants.
+
+This perspective helps explain why many agent-based and simulation-based approaches produce rich transient behavior yet converge to fixed regimes or repeating cycles. Without explicit population-level feedback that alters the effective transition structure, such systems can adapt within a given space of possibilities, but they cannot generate new ones. SDA provides a minimal example of how incorporating population-dependent feedback transforms simulation into genuine evolutionary dynamics.
+
+
 \section{Implications for Economics and Policy Modeling}
 
-Economic and policy systems are routinely described as evolutionary. Firms adapt, technologies diffuse, institutions evolve, and strategies compete over time. Yet most formal models in economics and policy analysis remain equilibrium-centered or rely on fixed behavioral rules, even when implemented in dynamic or agent-based form. As a result, these models can capture adjustment within predefined structures but struggle to represent the emergence of new strategies, institutional forms, or categories of behavior.
+\subsubsection{Illustrative Example: Industry Ecosystems}
 
-The SDA framework suggests a different modeling emphasis. Rather than specifying selection criteria or optimization objectives ex ante, evolutionary change can arise from differential persistence under continual turnover. In economic contexts, persistence may correspond to the durability of business models, regulatory arrangements, norms, or technologies under changing conditions. Entities that persist longer naturally accumulate influence, visibility, or market share, biasing future interactions and shaping the environment in which new variants arise. Selection, in this view, emerges from survival under pressure rather than from explicit optimization.
+The SDA framework can be interpreted in economic contexts as a model of evolving industry ecosystems. Consider a simplified system with manufacturers (A), retailers (B), and logistics providers (C) as base elements. Through interaction and coordination, these entities form composite organizational structures such as manufacturer--retailer partnerships (AB) or integrated supply networks (ABBC). Different configurations exhibit different degrees of stability, reflecting factors such as profitability, resilience, and institutional durability.
 
-This perspective helps clarify limitations of equilibrium-based policy analysis. Policies are often evaluated by comparing steady states before and after an intervention, implicitly assuming that system structure remains fixed. However, real policy interventions frequently alter the space of viable strategies and institutions, triggering long-term evolutionary effects that are invisible to equilibrium comparisons. Persistence-driven dynamics imply that small changes affecting survival or turnover rates can have outsized effects by reshaping population composition and future trajectories.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.85\textwidth]{SDA-econ.png}
+    \caption{Conceptual illustration of an industry ecosystem modeled as a Stability-Driven Assembly (SDA) process. 
+Base economic entities (e.g., manufacturers, retailers, logistics providers) interact to form composite organizational structures. 
+Configurations that persist longer under competitive and institutional pressures accumulate resources and participation, biasing future interactions. 
+Over time, differential persistence shapes the population of organizational forms, producing evolutionary dynamics without centralized optimization or explicit replication.}
+    \label{fig:sda-econ}
+\end{figure}
 
-Incorporating evolutionary feedback into economic and policy models does not require abandoning system dynamics principles, but it does require extending them. Models must allow population composition to influence future dynamics endogenously, rather than treating behavior and structure as static. Hybrid approaches that combine stock–flow models with agent-based or population-based representations offer a promising path forward. In such models, stocks represent populations of strategies or institutions, flows represent entry and exit governed by persistence, and feedback loops capture how accumulated structures bias future behavior.
+More stable configurations persist longer and therefore accumulate resources, attention, and participation, increasing their likelihood of engaging in further interactions. Less viable arrangements dissolve more quickly, redistributing resources back into the system. Over time, this persistence bias skews the population toward durable industry structures, which function as attractors without requiring centralized optimization or ex ante design.
+
+This example illustrates how stability-driven selection can operate in socio-economic systems through feedback between persistence, population composition, and future interactions. From a systems perspective, the key driver is not rational optimization at the firm level, but population-level feedback that amplifies durable organizational forms over time.
+
+\subsubsection{Implications for Economic and Policy Systems}
+
+Economic and policy systems are routinely described as evolutionary: firms adapt, technologies diffuse, institutions evolve, and strategies compete over time. Yet most formal models in economics and policy analysis remain equilibrium-centered or rely on fixed behavioral rules, even when implemented in dynamic or agent-based form. As a result, such models can represent adjustment within predefined structures but struggle to capture the emergence of new strategies, institutional forms, or categories of behavior.
+
+The SDA framework suggests a different modeling emphasis. Rather than specifying selection criteria or optimization objectives ex ante, evolutionary change can arise from differential persistence under continual turnover. In economic contexts, persistence may correspond to the durability of business models, regulatory arrangements, norms, or technologies under changing conditions. Entities that persist longer naturally accumulate influence, visibility, or market share, biasing future interactions and shaping the environment in which new variants arise.
+
+This perspective clarifies key limitations of equilibrium-based policy analysis. Policies are often evaluated by comparing steady states before and after an intervention, implicitly assuming that system structure remains fixed. In practice, however, policy interventions frequently alter the space of viable strategies and institutions, triggering long-term evolutionary effects that are invisible to equilibrium comparisons. Persistence-driven dynamics imply that small changes affecting survival or turnover rates can have outsized consequences by reshaping population composition and future trajectories.
+
+Incorporating evolutionary feedback into economic and policy models does not require abandoning system dynamics principles, but it does require extending them. Models must allow population composition to influence future dynamics endogenously, rather than treating behavior and structure as static. Hybrid approaches that combine stock--flow models with agent-based or population-based representations offer a promising path forward, in which stocks represent populations of strategies or institutions, flows represent entry and exit governed by persistence, and feedback loops capture how accumulated structures bias future behavior.
 
 Finally, the SDA perspective highlights a shift in policy design from optimization to resilience. Rather than attempting to engineer optimal outcomes in complex adaptive systems, policy may be better understood as shaping persistence landscapes—altering which behaviors, institutions, or technologies are able to survive and propagate. From this standpoint, effective policy is less about directing outcomes and more about creating conditions under which desirable structures can persist and evolve over time.
+
+
 
 \section{Conclusion}
 
