@@ -54,16 +54,27 @@
 %% -------------------------
 \usepackage[hidelinks]{hyperref}
 
+\newif\ifanonymized
+\anonymizedtrue    % <-- for review
+% \anonymizedfalse % <-- for final version
+
+
 %% -------------------------
 %% Title information
 %% -------------------------
 \title{\textbf{Evolutionary Systems Thinking}\\
 \large From Equilibrium Models to Open-Ended Adaptive Dynamics}
 
-\author{
-Dan Adler\\
-\small \texttt{dan@danadler.com}
-}
+\ifanonymized
+  \author{Anonymous Author(s)}
+  \date{}
+\else
+  \author{
+    Dan Adler\\
+    \texttt{dan@danadler.com}
+  }
+  \date{\today}
+\fi
 
 \date{}  % ISDC papers often omit date
 
